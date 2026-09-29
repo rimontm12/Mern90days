@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MERN 90 Day Roadmap</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f4f7fb;color:#172033}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+.hero{background:linear-gradient(135deg,#111827,#2563eb);color:#fff;border-radius:24px;padding:28px;box-shadow:0 12px 30px #0002}
+h1{margin:0 0 8px;font-size:clamp(28px,5vw,44px)}.hero p{margin:0;color:#dbeafe}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}.stat{padding:14px;border:1px solid #ffffff25;background:#ffffff14;border-radius:15px}.stat b{display:block;font-size:25px}.stat span{font-size:12px;color:#dbeafe}
+.progress{background:#fff;border:1px solid #e5eaf2;padding:18px;border-radius:18px;margin:18px 0}.line{height:12px;background:#e8edf5;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,#2563eb,#22c55e);transition:.25s}.ptext{display:flex;justify-content:space-between;margin-bottom:8px;font-weight:700}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.controls input,.controls select,.controls button{padding:11px 13px;border:1px solid #dce2ec;border-radius:11px;background:#fff;font:inherit}.controls input{flex:1;min-width:220px}.controls button{cursor:pointer}.primary{background:#2563eb!important;color:white;border-color:#2563eb!important}
+.week{background:#fff;border:1px solid #e4e9f1;border-radius:20px;margin-bottom:16px;overflow:hidden}.weekhead{padding:18px 20px;background:#fafbfe;display:flex;justify-content:space-between;gap:15px}.weekhead h2{margin:0;font-size:19px}.weekhead p{margin:5px 0 0;color:#667085;font-size:13px}.wp{color:#2563eb;font-weight:800;white-space:nowrap}
+.day{display:grid;grid-template-columns:65px 1fr auto 24px;gap:12px;align-items:center;padding:14px 18px;border-top:1px solid #eef1f5}.dayno{font-weight:800;color:#64748b}.topic{font-weight:750}.topic small{display:block;color:#667085;font-weight:500;margin-top:4px;line-height:1.45}.tag{font-size:11px;background:#eff6ff;color:#1d4ed8;padding:6px 9px;border-radius:99px}.check{width:20px;height:20px;accent-color:#2563eb}.done .topic{text-decoration:line-through;color:#94a3b8}.done{opacity:.75}
+.note{padding:16px;background:#fff7ed;border:1px solid #fed7aa;border-radius:18px;margin-top:18px;color:#7c2d12}.empty{background:#fff;padding:30px;text-align:center;border-radius:18px;color:#667085}
+@media(max-width:700px){.wrap{padding:12px}.stats{grid-template-columns:repeat(2,1fr)}.day{grid-template-columns:48px 1fr 24px}.tag{display:none}.controls>*{width:100%}.weekhead{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<h1>🚀 MERN 90-Day Roadmap</h1>
+<p>প্রতিদিন কী শিখবে, কতটুকু শেষ করেছো এবং কতদিন বাকি—সব এক জায়গায়।</p>
+<div class="stats">
+<div class="stat"><b id="done">0</b><span>দিন শেষ</span></div>
+<div class="stat"><b id="left">90</b><span>দিন বাকি</span></div>
+<div class="stat"><b id="pct">0%</b><span>মোট Progress</span></div>
+<div class="stat"><b>5h</b><span>Daily Target</span></div>
+</div>
+</section>
+
+<section class="progress">
+<div class="ptext"><span>Overall Progress</span><span id="plabel">0 / 90</span></div>
+<div class="line"><div class="fill" id="fill"></div></div>
+</section>
+
+<div class="controls">
+<input id="search" placeholder="🔎 Topic খুঁজুন...">
+<select id="month"><option value="all">সব Month</option><option value="1">Month 1</option><option value="2">Month 2</option><option value="3">Month 3</option></select>
+<select id="filter"><option value="all">সব দিন</option><option value="todo">বাকি</option><option value="done">শেষ</option></select>
+<button class="primary" onclick="completeNextWeek()">Next Week Complete</button>
+<button onclick="resetAll()">Reset Progress</button>
+</div>
+
+<div id="app"></div>
+<div class="note"><b>📚 Daily routine:</b> 1 ঘণ্টা Theory + 2 ঘণ্টা Coding + 1.5 ঘণ্টা Project + 30 মিনিট Revision/GitHub।<br>
+Checkbox চাপলে progress এই browser-এ automatically save হবে।</div>
+</div>
+
+<script>
+const weeks=[
+["Week 1","HTML + CSS + Git",1,[["HTML5 & Semantic","Semantic tags, forms, tables","HTML"],["HTML Practice","Forms, tables, basic page structure","HTML"],["CSS Basics","Selectors, box model, units, typography","CSS"],["Flexbox","Layout, alignment, responsive basics","CSS"],["Grid + Responsive","CSS Grid, media queries, mobile-first","CSS"],["Git + GitHub","init, add, commit, push, repository","Git"],["Portfolio Project","Responsive portfolio + GitHub upload","PROJECT"]]],
+["Week 2","JavaScript Fundamentals",1,[["Variables & Types","let/const, string, number, boolean, null, undefined","JS"],["Conditions & Loops","if/else, switch, for, while","JS"],["Functions","Functions, arrow functions, scope","JS"],["Arrays","Array methods and practice","JS"],["Objects","Properties, methods, nested objects","JS"],["DOM & Events","DOM selection, manipulation, click/input events","JS"],["JS Practice","5–10 problems + revision","PRACTICE"]]],
+["Week 3","Advanced JavaScript",1,[["ES6+","Destructuring, spread/rest, template literals","JS"],["Array Methods","map, filter, reduce, find, forEach","JS"],["Callbacks + Promise","Callbacks, Promise states, chaining","JS"],["Async/Await","async, await, try/catch","JS"],["Fetch + JSON","API request, JSON parsing, response handling","API"],["Modules","import/export and code organization","JS"],["Weather/Movie App","Build an API-based mini project","PROJECT"]]],
+["Week 4","React Fundamentals",1,[["React Setup + JSX","Vite, components, JSX","React"],["Components + Props","Reusable components, props","React"],["useState + Events","State and event handling","React"],["Conditional + Lists","Conditional rendering, keys","React"],["Forms","Controlled inputs, submit, validation basics","React"],["useEffect + API","Effects, API calls, loading/error","React"],["Product App","Product listing + API integration","PROJECT"]]],
+["Week 5","Node.js + Express",2,[["Node Fundamentals","Node runtime, npm, package.json","Node"],["Modules + Env","Modules, dotenv, environment variables","Node"],["Async Node","Promises and async/await","Node"],["HTTP Basics","Methods, headers, status codes","HTTP"],["Express Setup","Server, routes, request/response","Express"],["Middleware","Custom middleware and request flow","Express"],["Mini API","Build a small Express API","PROJECT"]]],
+["Week 6","REST API",2,[["REST Concepts","Resources, endpoints, HTTP verbs","API"],["CRUD API","GET, POST, PUT/PATCH, DELETE","API"],["Controllers","Separate routes and controller logic","Express"],["Validation","Validate body and params","API"],["Error Handling","Central error middleware + status codes","Express"],["Postman","Test API endpoints","TOOLS"],["Blog API","Complete REST Blog API","PROJECT"]]],
+["Week 7","MongoDB + Mongoose",2,[["MongoDB Basics","Database, collection, document","MongoDB"],["MongoDB CRUD","Insert, find, update, delete","MongoDB"],["MongoDB Atlas","Cloud database + connection","MongoDB"],["Mongoose Schema","Schema, model, validation","Mongoose"],["Relationships","References + populate","Mongoose"],["Queries + Indexes","Filtering, sorting, basic indexes","MongoDB"],["User + Blog API","Connect API with MongoDB","PROJECT"]]],
+["Week 8","Authentication",2,[["Register","User model + validation","Auth"],["bcrypt","Password hashing and comparison","Security"],["Login","Credential verification + token","Auth"],["JWT","Access token + protected route","Auth"],["Cookies + CORS","Cookie basics + CORS","Security"],["Authorization","User/Admin roles","Auth"],["Auth Project","Register + login + dashboard","PROJECT"]]],
+["Week 9","React + Backend Integration",3,[["API Integration","Connect React with Express","MERN"],["Axios/Fetch","Central API calls and headers","MERN"],["Auth State","Login state + logout","React"],["Protected Routes","Frontend route protection","React"],["Loading + Errors","Async UX states","React"],["Context API","Global state basics","React"],["E-commerce Start","Architecture + initial screens","PROJECT"]]],
+["Week 10","E-commerce Features",3,[["Home + Products","Product listing and reusable cards","MERN"],["Product Details","Details page + API","MERN"],["Search + Filter","Search, category, filtering","MERN"],["Cart","Add/remove/update quantity","MERN"],["User Profile","Profile + order history UI","MERN"],["Order Backend","Order API + validation","Backend"],["Integration","Connect major features","PROJECT"]]],
+["Week 11","Admin + Deployment",3,[["Admin Panel","Dashboard layout","Admin"],["Product CRUD","Add/edit/delete products","Admin"],["User + Orders","Management screens","Admin"],["Image Upload","Upload flow + image URLs","Backend"],["Production Config","Env, CORS, security review","Deploy"],["Deployment","Frontend + backend production build","Deploy"],["README + Cleanup","Documentation, fixes, GitHub polish","PROJECT"]]],
+["Week 12","Portfolio + Interview",3,[["Project Polish","Bugs, responsive UI, UX","Portfolio"],["GitHub Portfolio","README, screenshots, demo links","GitHub"],["JavaScript Revision","Core JS + coding problems","Interview"],["React Revision","Hooks, state, routing, API","Interview"],["Backend Revision","Node, Express, REST, auth","Interview"],["MongoDB Revision","CRUD, schema, indexes, populate","Interview"],["Mock Interview","Explain full MERN project end-to-end","INTERVIEW"]]]
+];
+
+const KEY="mern90_tracker_v2";
+let state=JSON.parse(localStorage.getItem(KEY)||"{}");
+
+function render(){
+ const q=document.getElementById("search").value.toLowerCase(), m=document.getElementById("month").value, f=document.getElementById("filter").value;
+ const app=document.getElementById("app"); app.innerHTML="";
+ let any=false;
+ weeks.forEach((w,wi)=>{
+   if(m!="all" && String(w[2])!==m)return;
+   const filtered=w[3].map((x,di)=>({x,di,done:!!state[wi+"-"+di]})).filter(o=>{
+     const text=(o.x[0]+" "+o.x[1]+" "+o.x[2]).toLowerCase();
+     return text.includes(q) && (f==="all" || f==="done"&&o.done || f==="todo"&&!o.done);
+   });
+   if(!filtered.length)return; any=true;
+   const completed=w[3].filter((_,di)=>state[wi+"-"+di]).length;
+   const sec=document.createElement("section");sec.className="week";
+   sec.innerHTML=`<div class="weekhead"><div><h2>${w[0]} — ${w[1]}</h2><p>Month ${w[2]} • প্রতিদিন 5 ঘণ্টা target</p></div><div class="wp">${completed}/7 done</div></div>`;
+   filtered.forEach(o=>{
+     const d=document.createElement("label");d.className="day "+(o.done?"done":"");
+     d.innerHTML=`<div class="dayno">Day ${wi*7+o.di+1}</div><div class="topic">${o.x[0]}<small>${o.x[1]}</small></div><span class="tag">${o.x[2]}</span><input class="check" type="checkbox" ${o.done?"checked":""}>`;
+     d.querySelector("input").onchange=e=>{state[wi+"-"+o.di]=e.target.checked;save()};
+     sec.appendChild(d);
+   });app.appendChild(sec);
+ });
+ if(!any)app.innerHTML='<div class="empty">কোনো topic পাওয়া যায়নি। Search/filter পরিবর্তন করো।</div>';
+ updateStats();
+}
+function updateStats(){
+ const done=Object.values(state).filter(Boolean).length,p=Math.round(done/90*100);
+ document.getElementById("done").textContent=done;document.getElementById("left").textContent=90-done;
+ document.getElementById("pct").textContent=p+"%";document.getElementById("plabel").textContent=done+" / 90 days";
+ document.getElementById("fill").style.width=p+"%";
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
+function completeNextWeek(){
+ const wi=weeks.findIndex((w,i)=>w[3].some((_,d)=>!state[i+"-"+d]));
+ if(wi<0){alert("সব 90 দিন complete! 🎉");return}
+ weeks[wi][3].forEach((_,d)=>state[wi+"-"+d]=true);save();
+}
+function resetAll(){if(confirm("সব progress মুছে ফেলবে?")){state={};save()}}
+["search","month","filter"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+render();
+</script>
+</body>
+</html>
